@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Smart Contract Auditor</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Smart Contract Auditor</h1>
+      <form id="audit-form">
+        <label for="contract-address">Enter Smart Contract Address:</label>
+        <input
+          type="text"
+          id="contract-address"
+          name="contract-address"
+          required
+        />
+        <button type="submit">Audit</button>
+      </form>
+      <div id="results"></div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
