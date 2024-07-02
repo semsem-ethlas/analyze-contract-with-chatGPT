@@ -1,1 +1,0 @@
-# analyze-contract-with-chatGPT

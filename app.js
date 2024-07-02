@@ -1,30 +1,39 @@
 import express from "express";
-import bodyParser from "body-parser";
 import { auditSmartContract } from "./auditService.js";
 import open from "open";
+import path from "path";
+import { fileURLToPath } from "url";
 
 const app = express();
-app.use(bodyParser.json());
+const port = 3000;
 
-// Serve static files (e.g., HTML, CSS, JS) from the public directory
-app.use(express.static("public"));
+// Convert __dirname to work with ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-// Define the /audit POST endpoint
+// Serve static files from the "public" directory
+app.use(express.static(path.join(__dirname, "public")));
+
+// Parse JSON bodies
+app.use(express.json());
+
+// Serve the index.html file at the root endpoint
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
 app.post("/audit", async (req, res) => {
-  const { address } = req.body;
-  console.log(`Received audit request for address: ${address}`);
+  const { contractAddress } = req.body;
   try {
-    const vulnerabilities = await auditSmartContract(address);
-    console.log(`Audit successful for address: ${address}`);
-    res.json({ vulnerabilities });
+    const analysis = await auditSmartContract(contractAddress);
+    res.json({ analysis });
   } catch (error) {
-    console.error(`Error auditing address ${address}:`, error.message);
     res.status(500).json({ error: error.message });
   }
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, async () => {
-  console.log(`Server is running on port ${PORT}`);
-  await open(`http://localhost:${PORT}`);
+app.listen(port, async () => {
+  console.log(`Server is running on http://localhost:${port}`);
+  // Open the default web browser to http://localhost:3000
+  await open(`http://localhost:${port}`);
 });

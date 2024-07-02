@@ -1,5 +1,5 @@
 {
-  "name": "smart-contract-auditor",
+  "name": "your-project-name",
   "version": "1.0.0",
   "main": "app.js",
   "type": "module",
@@ -8,8 +8,8 @@
   },
   "dependencies": {
     "axios": "^0.21.1",
-    "body-parser": "^1.19.0",
     "express": "^4.17.1",
-    "open": "^8.2.1"
+    "open": "^8.0.0",
+    "openai": "^3.2.0"
   }
 }
